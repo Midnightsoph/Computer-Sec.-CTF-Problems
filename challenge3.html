@@ -1,0 +1,59 @@
+<!-- 
+Logic Challenge: Math
+
+Description: This is a logic-based challenge where the user solves a math problem to reveal the flag. 
+It tests basic problem-solving and understanding of order of operations. 
+This reflects the logical thinking needed in many cybersecurity tasks.
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CTF Challenge 3 - Logic</title>
+    <style>
+        body {
+            background: #111;
+            color: white;
+            font-family: Arial;
+            text-align: center;
+            margin-top: 100px;
+        }
+        input, button {
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+            border: none;
+        }
+        button {
+            background: #ff9800;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<h1>🧠 Logic Challenge</h1>
+<p>Solve the problem:</p>
+
+<p><b>What is 5 + 3 * 2?</b></p>
+
+<input type="text" id="answer" placeholder="Enter answer">
+<button onclick="checkAnswer()">Submit</button>
+
+<p id="result"></p>
+
+<script>
+function checkAnswer() {
+    var input = document.getElementById("answer").value;
+
+    if(input === "11") {
+        document.getElementById("result").innerHTML = "🎉 Flag: flag{math_master}";
+    } else {
+        document.getElementById("result").innerHTML = "❌ Try again!";
+    }
+}
+</script>
+
+</body>
+</html>

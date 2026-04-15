@@ -1,0 +1,56 @@
+<!-- 
+Web Challenge: Hidden Password
+This challenge requires the user to inspect the page source code to find a hidden password.
+It demonstrates how storing sensitive data in client-side code is insecure.
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CTF Challenge 1 - Web</title>
+    <style>
+        body {
+            background: #111;
+            color: white;
+            font-family: Arial;
+            text-align: center;
+            margin-top: 100px;
+        }
+        input, button {
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+            border: none;
+        }
+        button {
+            background: #00bcd4;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<h1>🔐 Web Challenge</h1>
+<p>Find the hidden password to reveal the flag.</p>
+<p><i>Hint: Try inspecting the page...</i></p>
+
+<input type="text" id="password" placeholder="Enter password">
+<button onclick="checkPassword()">Submit</button>
+
+<p id="result"></p>
+
+<script>
+function checkPassword() {
+    var input = document.getElementById("password").value;
+
+    if(input === "inspect123") {
+        document.getElementById("result").innerHTML = "🎉 Flag: flag{you_found_it}";
+    } else {
+        document.getElementById("result").innerHTML = "❌ Try again!";
+    }
+}
+</script>
+
+</body>
+</html>
