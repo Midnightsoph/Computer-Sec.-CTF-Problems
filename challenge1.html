@@ -1,56 +1,170 @@
-<!-- 
-Web Challenge: Hidden Password
-This challenge requires the user to inspect the page source code to find a hidden password.
-It demonstrates how storing sensitive data in client-side code is insecure.
--->
+<!--
+  Description: FGCU Cyber Portal Breach
+  This challenge simulates a compromised portal page.
+  The user must inspect the page source, recover a reversed token,
+  and reverse it to obtain the correct access key.
+  -->
+
+  <!-- DEV_BACKUP_KEY: 7Qx!9eL@cYb3r -->
+<!-- Reverse this key before use -->
+
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>CTF Challenge 1 - Web</title>
-    <style>
-        body {
-            background: #111;
-            color: white;
-            font-family: Arial;
-            text-align: center;
-            margin-top: 100px;
-        }
-        input, button {
-            padding: 10px;
-            margin: 10px;
-            border-radius: 5px;
-            border: none;
-        }
-        button {
-            background: #00bcd4;
-            color: white;
-            cursor: pointer;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FGCU Cyber Range - Portal Breach</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Consolas, Monaco, monospace;
+      background:
+        radial-gradient(circle at top, rgba(0,255,170,0.08), transparent 30%),
+        linear-gradient(180deg, #071018, #03070b);
+      color: #d7ffe9;
+      min-height: 100vh;
+    }
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 28px;
+      border-bottom: 1px solid rgba(0,255,170,0.18);
+      background: rgba(0,0,0,0.35);
+      box-shadow: 0 0 20px rgba(0,255,170,0.05);
+    }
+    .brand {
+      color: #00ffae;
+      font-weight: bold;
+      letter-spacing: 1px;
+      font-size: 18px;
+    }
+    .status {
+      color: #8fffd2;
+      font-size: 14px;
+    }
+    .container {
+      max-width: 850px;
+      margin: 60px auto;
+      padding: 0 20px;
+    }
+    .panel {
+      background: rgba(6, 17, 24, 0.92);
+      border: 1px solid rgba(0,255,170,0.18);
+      border-radius: 14px;
+      box-shadow: 0 0 35px rgba(0,255,170,0.08);
+      overflow: hidden;
+    }
+    .panel-header {
+      padding: 16px 22px;
+      border-bottom: 1px solid rgba(0,255,170,0.12);
+      background: rgba(0,255,170,0.04);
+    }
+    .panel-header h1 {
+      margin: 0;
+      color: #00ffae;
+      font-size: 24px;
+    }
+    .meta {
+      margin-top: 8px;
+      color: #9be8c8;
+      font-size: 14px;
+    }
+    .panel-body {
+      padding: 24px 22px 28px;
+    }
+    .terminal {
+      background: #020508;
+      border: 1px solid rgba(0,255,170,0.18);
+      border-radius: 10px;
+      padding: 16px;
+      margin: 18px 0 24px;
+      color: #9effcc;
+      line-height: 1.7;
+    }
+    .prompt { color: #00ffae; }
+    input {
+      width: 100%;
+      padding: 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(0,255,170,0.25);
+      background: #081118;
+      color: #d7ffe9;
+      font-size: 15px;
+      outline: none;
+      margin-top: 6px;
+    }
+    button {
+      margin-top: 16px;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 10px;
+      background: #00ffae;
+      color: #03110b;
+      font-weight: bold;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    button:hover {
+      background: #6fffd0;
+    }
+    .hint, #result {
+      margin-top: 16px;
+      font-size: 14px;
+    }
+    .hint { color: #9be8c8; }
+    #result { font-weight: bold; color: #ffffff; word-break: break-word; }
+  </style>
 </head>
 <body>
 
-<h1>🔐 Web Challenge</h1>
-<p>Find the hidden password to reveal the flag.</p>
-<p><i>Hint: Try inspecting the page...</i></p>
+  <div class="topbar">
+    <div class="brand">FGCU CYBER RANGE</div>
+    <div class="status">SYSTEM STATUS: DEGRADED</div>
+  </div>
 
-<input type="text" id="password" placeholder="Enter password">
-<button onclick="checkPassword()">Submit</button>
+  <div class="container">
+    <div class="panel">
+      <div class="panel-header">
+        <h1>Portal Breach Investigation</h1>
+        <div class="meta">Category: Web | Difficulty: Hard</div>
+      </div>
 
-<p id="result"></p>
+      <div class="panel-body">
+        <p>An FGCU portal deployment was exposed with leftover developer artifacts.</p>
+        <p>Recover the hidden token and validate the breach indicator.</p>
 
-<script>
-function checkPassword() {
-    var input = document.getElementById("password").value;
+        <div class="terminal">
+          <span class="prompt">analyst@fgcu:~$</span> enumerate portal artifacts<br>
+          <span class="prompt">analyst@fgcu:~$</span> recover backup credential<br>
+          <span class="prompt">analyst@fgcu:~$</span> authenticate with transformed token
+        </div>
 
-    if(input === "inspect123") {
-        document.getElementById("result").innerHTML = "🎉 Flag: flag{you_found_it}";
-    } else {
-        document.getElementById("result").innerHTML = "❌ Try again!";
+        <label for="password">Recovered Access Key</label>
+        <input type="text" id="password" placeholder="Enter recovered access key" />
+        <button onclick="checkPassword()">Authenticate</button>
+
+        <div class="hint">Hint: Not every key is stored in the direction you expect.</div>
+        <div id="result"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function checkPassword() {
+      const input = document.getElementById("password").value.trim();
+      const correctPassword = "r3byc@Le9!xQ7";
+
+      if (input === correctPassword) {
+        document.getElementById("result").innerHTML =
+          "ACCESS GRANTED :: Flag captured -> flag{fgcu_web_breach_r3v3rs3d}";
+      } else {
+        document.getElementById("result").innerHTML =
+          "ACCESS DENIED :: Invalid transformed key.";
+      }
     }
-}
-</script>
-
+  </script>
 </body>
 </html>
