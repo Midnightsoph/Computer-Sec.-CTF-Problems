@@ -1,59 +1,181 @@
-<!-- 
-Logic Challenge: Math
-
-Description: This is a logic-based challenge where the user solves a math problem to reveal the flag. 
-It tests basic problem-solving and understanding of order of operations. 
-This reflects the logical thinking needed in many cybersecurity tasks.
--->
+<!--
+  Description: FGCU Secure Vault Logic Challenge
+  This challenge requires solving a 4-digit access puzzle using deduction.
+  The clues are structured so the answer is unique and less predictable.
+  -->
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>CTF Challenge 3 - Logic</title>
-    <style>
-        body {
-            background: #111;
-            color: white;
-            font-family: Arial;
-            text-align: center;
-            margin-top: 100px;
-        }
-        input, button {
-            padding: 10px;
-            margin: 10px;
-            border-radius: 5px;
-            border: none;
-        }
-        button {
-            background: #ff9800;
-            color: white;
-            cursor: pointer;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FGCU Cyber Range - Secure Vault</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Consolas, Monaco, monospace;
+      background:
+        radial-gradient(circle at top left, rgba(255,170,0,0.08), transparent 28%),
+        linear-gradient(180deg, #0d0c16, #04040a);
+      color: #fff5dd;
+      min-height: 100vh;
+    }
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 28px;
+      border-bottom: 1px solid rgba(255,170,0,0.18);
+      background: rgba(0,0,0,0.35);
+    }
+    .brand {
+      color: #ffb347;
+      font-weight: bold;
+      font-size: 18px;
+      letter-spacing: 1px;
+    }
+    .status {
+      color: #ffd598;
+      font-size: 14px;
+    }
+    .container {
+      max-width: 880px;
+      margin: 60px auto;
+      padding: 0 20px;
+    }
+    .panel {
+      background: rgba(17, 13, 22, 0.94);
+      border: 1px solid rgba(255,170,0,0.18);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 0 35px rgba(255,170,0,0.08);
+    }
+    .panel-header {
+      padding: 16px 22px;
+      border-bottom: 1px solid rgba(255,170,0,0.12);
+      background: rgba(255,170,0,0.04);
+    }
+    .panel-header h1 {
+      margin: 0;
+      color: #ffb347;
+      font-size: 24px;
+    }
+    .meta {
+      margin-top: 8px;
+      color: #ffd598;
+      font-size: 14px;
+    }
+    .panel-body {
+      padding: 24px 22px 28px;
+    }
+    .terminal {
+      background: #06040a;
+      border: 1px solid rgba(255,170,0,0.18);
+      border-radius: 10px;
+      padding: 14px;
+      margin-bottom: 20px;
+      color: #ffe1b0;
+    }
+    .prompt { color: #ffb347; }
+    .clue-box {
+      margin: 18px 0 22px;
+      padding: 16px;
+      border-radius: 10px;
+      background: #06040a;
+      border: 1px solid rgba(255,170,0,0.18);
+      line-height: 1.8;
+      color: #ffe7be;
+    }
+    input {
+      width: 100%;
+      padding: 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,170,0,0.25);
+      background: #100d14;
+      color: #fff5dd;
+      font-size: 15px;
+      outline: none;
+    }
+    button {
+      margin-top: 16px;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 10px;
+      background: #ffb347;
+      color: #201206;
+      font-weight: bold;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    button:hover {
+      background: #ffd089;
+    }
+    .hint, #result {
+      margin-top: 16px;
+      font-size: 14px;
+    }
+    .hint { color: #ffd598; }
+    #result { font-weight: bold; color: white; word-break: break-word; }
+  </style>
 </head>
 <body>
 
-<h1>🧠 Logic Challenge</h1>
-<p>Solve the problem:</p>
 
-<p><b>What is 5 + 3 * 2?</b></p>
+  <div class="topbar">
+    <div class="brand">FGCU CYBER RANGE</div>
+    <div class="status">VAULT STATUS: LOCKED</div>
+  </div>
 
-<input type="text" id="answer" placeholder="Enter answer">
-<button onclick="checkAnswer()">Submit</button>
+  <div class="container">
+    <div class="panel">
+      <div class="panel-header">
+        <h1>Secure Vault Recovery</h1>
+        <div class="meta">Category: Logic | Difficulty: Hard</div>
+      </div>
 
-<p id="result"></p>
+      <div class="panel-body">
+        <p>The FGCU archive vault is secured by a 4-digit recovery code.</p>
+        <p>Use the intelligence below to deduce the correct code.</p>
 
-<script>
-function checkAnswer() {
-    var input = document.getElementById("answer").value;
+        <div class="terminal">
+          <span class="prompt">logic@fgcu:~$</span> parse clue relationships<br>
+          <span class="prompt">logic@fgcu:~$</span> verify digit constraints<br>
+          <span class="prompt">logic@fgcu:~$</span> recover vault code
+        </div>
 
-    if(input === "11") {
-        document.getElementById("result").innerHTML = "🎉 Flag: flag{math_master}";
-    } else {
-        document.getElementById("result").innerHTML = "❌ Try again!";
+        <div class="clue-box">
+          I am a 4-digit code.<br>
+          My digits add up to 18.<br>
+          My second digit is 2 more than my first digit.<br>
+          My third digit is 1 less than my second digit.<br>
+          My fourth digit is double my first digit.<br>
+          My first digit is an odd number.
+        </div>
+
+        <label for="code">Recovered Vault Code</label>
+        <input type="text" id="code" placeholder="Enter the 4-digit code" />
+        <button onclick="checkCode()">Unlock Vault</button>
+
+        <div class="hint">Hint: Let the first digit be x and write all others in terms of x.</div>
+        <div id="result"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function checkCode() {
+      const input = document.getElementById("code").value.trim();
+      const correctCode = "3546";
+
+      if (input === correctCode) {
+        document.getElementById("result").innerHTML =
+          "VAULT OPENED :: Flag captured -> flag{logic_vault_3546_unsealed}";
+      } else {
+        document.getElementById("result").innerHTML =
+          "LOCKED :: Incorrect recovery code.";
+      }
     }
-}
-</script>
-
+  </script>
 </body>
 </html>
