@@ -1,0 +1,194 @@
+<!--
+  Description: FGCU Cyber Lab Encrypted Transmission
+  This challenge uses layered decoding.
+  First decode the Base64 string.
+  Then apply ROT13 to the decoded text to reveal the final flag.
+  -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FGCU Cyber Range - Encrypted Transmission</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Consolas, Monaco, monospace;
+      background:
+        radial-gradient(circle at top right, rgba(0,180,255,0.08), transparent 30%),
+        linear-gradient(180deg, #071018, #02060a);
+      color: #e0f7ff;
+      min-height: 100vh;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 28px;
+      border-bottom: 1px solid rgba(0,180,255,0.18);
+      background: rgba(0,0,0,0.35);
+    }
+
+    .brand {
+      color: #39c8ff;
+      font-weight: bold;
+      font-size: 18px;
+      letter-spacing: 1px;
+    }
+
+    .status {
+      color: #9adfff;
+      font-size: 14px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 60px auto;
+      padding: 0 20px;
+    }
+
+    .panel {
+      background: rgba(5, 15, 24, 0.94);
+      border: 1px solid rgba(0,180,255,0.18);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 0 35px rgba(0,180,255,0.08);
+    }
+
+    .panel-header {
+      padding: 16px 22px;
+      border-bottom: 1px solid rgba(0,180,255,0.12);
+      background: rgba(0,180,255,0.04);
+    }
+
+    .panel-header h1 {
+      margin: 0;
+      color: #39c8ff;
+      font-size: 24px;
+    }
+
+    .subtext {
+      margin-top: 8px;
+      color: #a8e6ff;
+      font-size: 14px;
+    }
+
+    .panel-body {
+      padding: 24px 22px 28px;
+    }
+
+    .cipher-box {
+      margin: 18px 0 22px;
+      padding: 16px;
+      border-radius: 10px;
+      background: #020508;
+      border: 1px solid rgba(0,180,255,0.18);
+      color: #9fe6ff;
+      word-break: break-word;
+      line-height: 1.7;
+    }
+
+    .terminal {
+      background: #020508;
+      border: 1px solid rgba(0,180,255,0.18);
+      border-radius: 10px;
+      padding: 14px;
+      margin-bottom: 20px;
+      color: #9fe6ff;
+    }
+
+    .prompt { color: #39c8ff; }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(0,180,255,0.25);
+      background: #081118;
+      color: #e0f7ff;
+      font-size: 15px;
+      outline: none;
+    }
+
+    button {
+      margin-top: 16px;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 10px;
+      background: #39c8ff;
+      color: #041019;
+      font-weight: bold;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    button:hover {
+      background: #8ee6ff;
+    }
+
+    .hint, #result {
+      margin-top: 16px;
+      font-size: 14px;
+    }
+
+    .hint { color: #a8e6ff; }
+    #result { font-weight: bold; color: white; word-break: break-word; }
+  </style>
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="brand">FGCU CYBER RANGE</div>
+    <div class="status">CHANNEL STATUS: INTERCEPTED</div>
+  </div>
+
+  <div class="container">
+    <div class="panel">
+      <div class="panel-header">
+        <h1>Encrypted Transmission Analysis</h1>
+        <div class="subtext">Layered payload recovery exercise</div>
+      </div>
+
+      <div class="panel-body">
+        <p>A suspicious payload was intercepted by the FGCU cyber lab.</p>
+        <p>Analyze the layered encoding and recover the hidden flag.</p>
+
+        <div class="terminal">
+          <span class="prompt">crypto@fgcu:~$</span> identify outer encoding<br>
+          <span class="prompt">crypto@fgcu:~$</span> decode transmission<br>
+          <span class="prompt">crypto@fgcu:~$</span> apply secondary transformation
+        </div>
+
+        <div class="cipher-box">Uk9UMTM6IHN5bnR7cW5nbnlscmVfcHZjdXJlX3hten0=</div>
+
+        <label for="answer">Recovered Flag</label>
+        <input type="text" id="answer" placeholder="Enter recovered flag" />
+
+        <button onclick="checkAnswer()">Verify Flag</button>
+
+        <div class="hint">Hint: Decode Base64 first. Then only decode the message after "ROT13:".</div>
+        <div id="result"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function checkAnswer() {
+      const input = document.getElementById("answer").value.trim();
+      const correctAnswer = "flag{datalayer_cipher_kzm}";
+
+      if (input === correctAnswer) {
+        document.getElementById("result").innerHTML =
+          "VERIFIED :: Flag recovered -> flag{datalayer_cipher_kzm}";
+      } else {
+        document.getElementById("result").innerHTML =
+          "INVALID :: Continue decoding the layered payload.";
+      }
+    }
+  </script>
+</body>
+</html>
